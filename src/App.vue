@@ -1,59 +1,31 @@
-<script setup lang="ts">
+<script setup>
 import { ref } from 'vue'
 
 // State management
 const activeTab = ref('dashboard')
-const isDark = ref(false)
-const isSideMenuOpen = ref(false)
 const isNotificationsMenuOpen = ref(false)
 const isProfileMenuOpen = ref(false)
 
 // Toggle functions
-function toggleSideMenu() {
-  isSideMenuOpen.value = !isSideMenuOpen.value
-}
-
-function closeSideMenu() {
-  isSideMenuOpen.value = false
-}
-
 function toggleNotificationsMenu() {
   isNotificationsMenuOpen.value = !isNotificationsMenuOpen.value
   isProfileMenuOpen.value = false
-}
-
-function closeNotificationsMenu() {
-  isNotificationsMenuOpen.value = false
 }
 
 function toggleProfileMenu() {
   isProfileMenuOpen.value = !isProfileMenuOpen.value
   isNotificationsMenuOpen.value = false
 }
-
-function closeProfileMenu() {
-  isProfileMenuOpen.value = false
-}
-
-function toggleTheme() {
-  isDark.value = !isDark.value
-  if (isDark.value) {
-    document.documentElement.classList.add('dark')
-  }
-  else {
-    document.documentElement.classList.remove('dark')
-  }
-}
 </script>
 
 <template>
-  <div class="flex h-screen bg-gray-50 dark:bg-gray-900">
+  <div class="flex h-screen bg-gray-50">
     <!-- Sidebar -->
-    <aside class="z-20 hidden w-64 overflow-y-auto bg-white dark:bg-gray-800 md:block flex-shrink-0">
-      <div class="py-4 text-gray-500 dark:text-gray-400">
+    <aside class="z-20 w-64 overflow-y-auto bg-white flex-shrink-0">
+      <div class="py-4 text-gray-500">
         <a
           href="#"
-          class="ml-6 text-lg font-bold text-gray-800 dark:text-gray-200"
+          class="ml-6 text-lg font-bold text-gray-800"
         >
           MarketAdmin
         </a>
@@ -66,8 +38,8 @@ function toggleTheme() {
             />
             <a
               href="#"
-              class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-              :class="{ 'text-gray-800 dark:text-gray-100': activeTab === 'dashboard' }"
+              class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800"
+              :class="{ 'text-gray-800': activeTab === 'dashboard' }"
               @click.prevent="activeTab = 'dashboard'"
             >
               <svg
@@ -115,8 +87,8 @@ function toggleTheme() {
             />
             <a
               href="#"
-              class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-              :class="{ 'text-gray-800 dark:text-gray-100': activeTab === 'products' }"
+              class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800"
+              :class="{ 'text-gray-800': activeTab === 'products' }"
               @click.prevent="activeTab = 'products'"
             >
               <svg
@@ -140,8 +112,8 @@ function toggleTheme() {
             />
             <a
               href="#"
-              class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-              :class="{ 'text-gray-800 dark:text-gray-100': activeTab === 'orders' }"
+              class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800"
+              :class="{ 'text-gray-800': activeTab === 'orders' }"
               @click.prevent="activeTab = 'orders'"
             >
               <svg
@@ -173,8 +145,8 @@ function toggleTheme() {
             />
             <a
               href="#"
-              class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-              :class="{ 'text-gray-800 dark:text-gray-100': activeTab === 'users' }"
+              class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800"
+              :class="{ 'text-gray-800': activeTab === 'users' }"
               @click.prevent="activeTab = 'users'"
             >
               <svg
@@ -202,8 +174,8 @@ function toggleTheme() {
             />
             <a
               href="#"
-              class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-              :class="{ 'text-gray-800 dark:text-gray-100': activeTab === 'blog' }"
+              class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800"
+              :class="{ 'text-gray-800': activeTab === 'blog' }"
               @click.prevent="activeTab = 'blog'"
             >
               <svg
@@ -232,227 +204,13 @@ function toggleTheme() {
       </div>
     </aside>
 
-    <!-- Mobile sidebar -->
-    <div
-      v-if="isSideMenuOpen"
-      class="fixed inset-0 z-10 flex items-end bg-black bg-opacity-50 sm:items-center sm:justify-center md:hidden"
-    >
-      <aside
-        class="fixed inset-y-0 z-20 flex-shrink-0 w-64 mt-16 overflow-y-auto bg-white dark:bg-gray-800 md:hidden"
-        @click.away="closeSideMenu"
-      >
-        <div class="py-4 text-gray-500 dark:text-gray-400">
-          <a
-            href="#"
-            class="ml-6 text-lg font-bold text-gray-800 dark:text-gray-200"
-          >
-            MarketAdmin
-          </a>
-          <ul class="mt-6">
-            <li class="relative px-6 py-3">
-              <span
-                v-if="activeTab === 'dashboard'"
-                class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
-                aria-hidden="true"
-              />
-              <a
-                href="#"
-                class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-                :class="{ 'text-gray-800 dark:text-gray-100': activeTab === 'dashboard' }"
-                @click.prevent="activeTab = 'dashboard'; closeSideMenu()"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="h-5 w-5"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                ><rect
-                  width="7"
-                  height="9"
-                  x="3"
-                  y="3"
-                  rx="1"
-                /><rect
-                  width="7"
-                  height="5"
-                  x="14"
-                  y="3"
-                  rx="1"
-                /><rect
-                  width="7"
-                  height="9"
-                  x="14"
-                  y="12"
-                  rx="1"
-                /><rect
-                  width="7"
-                  height="5"
-                  x="3"
-                  y="16"
-                  rx="1"
-                /></svg>
-                <span class="ml-4">Dashboard</span>
-              </a>
-            </li>
-            <li class="relative px-6 py-3">
-              <span
-                v-if="activeTab === 'products'"
-                class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
-                aria-hidden="true"
-              />
-              <a
-                href="#"
-                class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-                :class="{ 'text-gray-800 dark:text-gray-100': activeTab === 'products' }"
-                @click.prevent="activeTab = 'products'; closeSideMenu()"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="h-5 w-5"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                ><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z" /><path d="M3 6h18" /><path d="M16 10a4 4 0 0 1-8 0" /></svg>
-                <span class="ml-4">Products</span>
-              </a>
-            </li>
-            <li class="relative px-6 py-3">
-              <span
-                v-if="activeTab === 'orders'"
-                class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
-                aria-hidden="true"
-              />
-              <a
-                href="#"
-                class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-                :class="{ 'text-gray-800 dark:text-gray-100': activeTab === 'orders' }"
-                @click.prevent="activeTab = 'orders'; closeSideMenu()"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="h-5 w-5"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                ><circle
-                  cx="8"
-                  cy="21"
-                  r="1"
-                /><circle
-                  cx="19"
-                  cy="21"
-                  r="1"
-                /><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" /></svg>
-                <span class="ml-4">Orders</span>
-              </a>
-            </li>
-            <li class="relative px-6 py-3">
-              <span
-                v-if="activeTab === 'users'"
-                class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
-                aria-hidden="true"
-              />
-              <a
-                href="#"
-                class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-                :class="{ 'text-gray-800 dark:text-gray-100': activeTab === 'users' }"
-                @click.prevent="activeTab = 'users'; closeSideMenu()"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="h-5 w-5"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                ><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /><circle
-                  cx="9"
-                  cy="7"
-                  r="4"
-                /><path d="M22 21v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" /></svg>
-                <span class="ml-4">Users</span>
-              </a>
-            </li>
-            <li class="relative px-6 py-3">
-              <span
-                v-if="activeTab === 'blog'"
-                class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
-                aria-hidden="true"
-              />
-              <a
-                href="#"
-                class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-                :class="{ 'text-gray-800 dark:text-gray-100': activeTab === 'blog' }"
-                @click.prevent="activeTab = 'blog'; closeSideMenu()"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="h-5 w-5"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                ><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2" /><path d="M18 14h-8" /><path d="M15 18h-5" /><path d="M10 6h8v4h-8V6Z" /></svg>
-                <span class="ml-4">Blog Posts</span>
-              </a>
-            </li>
-          </ul>
-          <div class="px-6 my-6">
-            <button class="flex items-center justify-between w-full px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
-              Create account
-              <span
-                class="ml-2"
-                aria-hidden="true"
-              >+</span>
-            </button>
-          </div>
-        </div>
-      </aside>
-    </div>
-
     <div class="flex flex-col flex-1 w-full">
       <!-- Header -->
-      <header class="z-10 py-4 bg-white shadow-md dark:bg-gray-800">
-        <div class="container flex items-center justify-between h-full px-6 mx-auto text-purple-600 dark:text-purple-300">
-          <!-- Mobile hamburger -->
-          <button
-            class="p-1 mr-5 -ml-1 rounded-md md:hidden focus:outline-none focus:shadow-outline-purple"
-            aria-label="Menu"
-            @click="toggleSideMenu"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="w-6 h-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M4 6h16M4 12h16M4 18h16"
-              />
-            </svg>
-          </button>
-
+      <header class="z-10 py-4 bg-white shadow-md">
+        <div class="container flex items-center justify-between h-full px-6 mx-auto text-purple-600">
           <!-- Search input -->
-          <div class="flex justify-center flex-1 lg:mr-32">
-            <div class="relative w-full max-w-xl mr-6 focus-within:text-purple-500">
+          <div class="flex justify-center flex-1 max-w-xl">
+            <div class="relative w-full focus-within:text-purple-500">
               <div class="absolute inset-y-0 flex items-center pl-2">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -470,7 +228,7 @@ function toggleTheme() {
                 </svg>
               </div>
               <input
-                class="w-full pl-8 pr-2 text-sm text-gray-700 placeholder-gray-600 bg-gray-100 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
+                class="w-full pl-8 pr-2 text-sm text-gray-700 placeholder-gray-600 bg-gray-100 border-0 rounded-md focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
                 type="text"
                 placeholder="Search for projects"
                 aria-label="Search"
@@ -479,48 +237,6 @@ function toggleTheme() {
           </div>
 
           <ul class="flex items-center flex-shrink-0 space-x-6">
-            <!-- Theme toggler -->
-            <li class="flex">
-              <button
-                class="rounded-md focus:outline-none focus:shadow-outline-purple"
-                aria-label="Toggle color mode"
-                @click="toggleTheme"
-              >
-                <template v-if="!isDark">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="w-5 h-5"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
-                    />
-                  </svg>
-                </template>
-                <template v-else>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="w-5 h-5"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
-                    />
-                  </svg>
-                </template>
-              </button>
-            </li>
-
             <!-- Notifications menu -->
             <li class="relative">
               <button
@@ -528,7 +244,6 @@ function toggleTheme() {
                 aria-label="Notifications"
                 aria-haspopup="true"
                 @click="toggleNotificationsMenu"
-                @keydown.escape="closeNotificationsMenu"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -547,42 +262,34 @@ function toggleTheme() {
                 <!-- Notification badge -->
                 <span
                   aria-hidden="true"
-                  class="absolute top-0 right-0 inline-block w-3 h-3 transform translate-x-1 -translate-y-1 bg-red-600 border-2 border-white rounded-full dark:border-gray-800"
+                  class="absolute top-0 right-0 inline-block w-3 h-3 transform translate-x-1 -translate-y-1 bg-red-600 border-2 border-white rounded-full"
                 />
               </button>
-              <template v-if="isNotificationsMenuOpen">
-                <ul
-                  class="absolute right-0 w-56 p-2 mt-2 space-y-2 text-gray-600 bg-white border border-gray-100 rounded-md shadow-md dark:text-gray-300 dark:border-gray-700 dark:bg-gray-700"
-                  @click.away="closeNotificationsMenu"
+              <div
+                v-if="isNotificationsMenuOpen"
+                class="absolute right-0 w-56 p-2 mt-2 space-y-2 text-gray-600 bg-white border border-gray-100 rounded-md shadow-md"
+              >
+                <a
+                  class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800"
+                  href="#"
                 >
-                  <li class="flex">
-                    <a
-                      class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
-                      href="#"
-                    >
-                      <span>New order received</span>
-                      <span class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-600 bg-red-100 rounded-full dark:text-red-100 dark:bg-red-600">New</span>
-                    </a>
-                  </li>
-                  <li class="flex">
-                    <a
-                      class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
-                      href="#"
-                    >
-                      <span>Low stock alert</span>
-                      <span class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-600 bg-red-100 rounded-full dark:text-red-100 dark:bg-red-600">3</span>
-                    </a>
-                  </li>
-                  <li class="flex">
-                    <a
-                      class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
-                      href="#"
-                    >
-                      <span>New user registered</span>
-                    </a>
-                  </li>
-                </ul>
-              </template>
+                  <span>New order received</span>
+                  <span class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-600 bg-red-100 rounded-full">New</span>
+                </a>
+                <a
+                  class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800"
+                  href="#"
+                >
+                  <span>Low stock alert</span>
+                  <span class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-600 bg-red-100 rounded-full">3</span>
+                </a>
+                <a
+                  class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800"
+                  href="#"
+                >
+                  <span>New user registered</span>
+                </a>
+              </div>
             </li>
 
             <!-- Profile menu -->
@@ -592,7 +299,6 @@ function toggleTheme() {
                 aria-label="Account"
                 aria-haspopup="true"
                 @click="toggleProfileMenu"
-                @keydown.escape="closeProfileMenu"
               >
                 <img
                   class="object-cover w-8 h-8 rounded-full"
@@ -601,85 +307,77 @@ function toggleTheme() {
                   aria-hidden="true"
                 >
               </button>
-              <template v-if="isProfileMenuOpen">
-                <ul
-                  class="absolute right-0 w-56 p-2 mt-2 space-y-2 text-gray-600 bg-white border border-gray-100 rounded-md shadow-md dark:border-gray-700 dark:text-gray-300 dark:bg-gray-700"
-                  @click.away="closeProfileMenu"
+              <div
+                v-if="isProfileMenuOpen"
+                class="absolute right-0 w-56 p-2 mt-2 space-y-2 text-gray-600 bg-white border border-gray-100 rounded-md shadow-md"
+              >
+                <a
+                  class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800"
+                  href="#"
                 >
-                  <li class="flex">
-                    <a
-                      class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
-                      href="#"
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        class="w-4 h-4 mr-3"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-                        />
-                      </svg>
-                      <span>Profile</span>
-                    </a>
-                  </li>
-                  <li class="flex">
-                    <a
-                      class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
-                      href="#"
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        class="w-4 h-4 mr-3"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
-                        />
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                        />
-                      </svg>
-                      <span>Settings</span>
-                    </a>
-                  </li>
-                  <li class="flex">
-                    <a
-                      class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
-                      href="#"
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        class="w-4 h-4 mr-3"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        stroke-width="2"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
-                        />
-                      </svg>
-                      <span>Log out</span>
-                    </a>
-                  </li>
-                </ul>
-              </template>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="w-4 h-4 mr-3"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                    />
+                  </svg>
+                  <span>Profile</span>
+                </a>
+                <a
+                  class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800"
+                  href="#"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="w-4 h-4 mr-3"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+                    />
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                    />
+                  </svg>
+                  <span>Settings</span>
+                </a>
+                <a
+                  class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800"
+                  href="#"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="w-4 h-4 mr-3"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+                    />
+                  </svg>
+                  <span>Log out</span>
+                </a>
+              </div>
             </li>
           </ul>
         </div>
@@ -690,15 +388,15 @@ function toggleTheme() {
         <div class="container px-6 mx-auto grid">
           <!-- Dashboard -->
           <div v-if="activeTab === 'dashboard'">
-            <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
+            <h2 class="my-6 text-2xl font-semibold text-gray-700">
               Dashboard
             </h2>
 
             <!-- Cards -->
-            <div class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
+            <div class="grid gap-6 mb-8 grid-cols-4">
               <!-- Card -->
-              <div class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
-                <div class="p-3 mr-4 text-orange-500 bg-orange-100 rounded-full dark:text-orange-100 dark:bg-orange-500">
+              <div class="flex items-center p-4 bg-white rounded-lg shadow-xs">
+                <div class="p-3 mr-4 text-orange-500 bg-orange-100 rounded-full">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     class="w-5 h-5"
@@ -711,17 +409,17 @@ function toggleTheme() {
                   ><path d="M3 3v18h18" /><path d="m19 9-5 5-4-4-3 3" /></svg>
                 </div>
                 <div>
-                  <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">
+                  <p class="mb-2 text-sm font-medium text-gray-600">
                     Total Revenue
                   </p>
-                  <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
+                  <p class="text-lg font-semibold text-gray-700">
                     $87,432.90
                   </p>
                 </div>
               </div>
               <!-- Card -->
-              <div class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
-                <div class="p-3 mr-4 text-green-500 bg-green-100 rounded-full dark:text-green-100 dark:bg-green-500">
+              <div class="flex items-center p-4 bg-white rounded-lg shadow-xs">
+                <div class="p-3 mr-4 text-green-500 bg-green-100 rounded-full">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     class="w-5 h-5"
@@ -742,17 +440,17 @@ function toggleTheme() {
                   /><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" /></svg>
                 </div>
                 <div>
-                  <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">
+                  <p class="mb-2 text-sm font-medium text-gray-600">
                     New Orders
                   </p>
-                  <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
+                  <p class="text-lg font-semibold text-gray-700">
                     376
                   </p>
                 </div>
               </div>
               <!-- Card -->
-              <div class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
-                <div class="p-3 mr-4 text-blue-500 bg-blue-100 rounded-full dark:text-blue-100 dark:bg-blue-500">
+              <div class="flex items-center p-4 bg-white rounded-lg shadow-xs">
+                <div class="p-3 mr-4 text-blue-500 bg-blue-100 rounded-full">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     class="w-5 h-5"
@@ -769,17 +467,17 @@ function toggleTheme() {
                   /><path d="M22 21v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" /></svg>
                 </div>
                 <div>
-                  <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">
+                  <p class="mb-2 text-sm font-medium text-gray-600">
                     New Customers
                   </p>
-                  <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
+                  <p class="text-lg font-semibold text-gray-700">
                     45
                   </p>
                 </div>
               </div>
               <!-- Card -->
-              <div class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
-                <div class="p-3 mr-4 text-teal-500 bg-teal-100 rounded-full dark:text-teal-100 dark:bg-teal-500">
+              <div class="flex items-center p-4 bg-white rounded-lg shadow-xs">
+                <div class="p-3 mr-4 text-teal-500 bg-teal-100 rounded-full">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     class="w-5 h-5"
@@ -792,10 +490,10 @@ function toggleTheme() {
                   ><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z" /><path d="M3 6h18" /><path d="M16 10a4 4 0 0 1-8 0" /></svg>
                 </div>
                 <div>
-                  <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">
+                  <p class="mb-2 text-sm font-medium text-gray-600">
                     Inventory
                   </p>
-                  <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
+                  <p class="text-lg font-semibold text-gray-700">
                     1,257
                   </p>
                 </div>
@@ -803,23 +501,23 @@ function toggleTheme() {
             </div>
 
             <!-- Charts -->
-            <div class="grid gap-6 mb-8 md:grid-cols-2">
-              <div class="min-w-0 p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
-                <h4 class="mb-4 font-semibold text-gray-800 dark:text-gray-300">
+            <div class="grid gap-6 mb-8 grid-cols-2">
+              <div class="min-w-0 p-4 bg-white rounded-lg shadow-xs">
+                <h4 class="mb-4 font-semibold text-gray-800">
                   Revenue
                 </h4>
                 <div class="relative h-56">
-                  <div class="absolute inset-0 flex items-center justify-center text-gray-500 dark:text-gray-400">
+                  <div class="absolute inset-0 flex items-center justify-center text-gray-500">
                     <p>Revenue Chart (Placeholder)</p>
                   </div>
                 </div>
               </div>
-              <div class="min-w-0 p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
-                <h4 class="mb-4 font-semibold text-gray-800 dark:text-gray-300">
+              <div class="min-w-0 p-4 bg-white rounded-lg shadow-xs">
+                <h4 class="mb-4 font-semibold text-gray-800">
                   Traffic
                 </h4>
                 <div class="relative h-56">
-                  <div class="absolute inset-0 flex items-center justify-center text-gray-500 dark:text-gray-400">
+                  <div class="absolute inset-0 flex items-center justify-center text-gray-500">
                     <p>Traffic Chart (Placeholder)</p>
                   </div>
                 </div>
@@ -829,7 +527,7 @@ function toggleTheme() {
 
           <!-- Products -->
           <div v-if="activeTab === 'products'">
-            <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
+            <h2 class="my-6 text-2xl font-semibold text-gray-700">
               Products
             </h2>
 
@@ -858,7 +556,7 @@ function toggleTheme() {
               <div class="w-full overflow-x-auto">
                 <table class="w-full whitespace-no-wrap">
                   <thead>
-                    <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+                    <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b bg-gray-50">
                       <th class="px-4 py-3">
                         Product
                       </th>
@@ -876,11 +574,11 @@ function toggleTheme() {
                       </th>
                     </tr>
                   </thead>
-                  <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                    <tr class="text-gray-700 dark:text-gray-400">
+                  <tbody class="bg-white divide-y">
+                    <tr class="text-gray-700">
                       <td class="px-4 py-3">
                         <div class="flex items-center text-sm">
-                          <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
+                          <div class="relative w-8 h-8 mr-3 rounded-full">
                             <img
                               class="object-cover w-full h-full rounded-full"
                               src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&facepad=3&fit=facearea&s=707b9c33066bf8808c934c8ab394dff6"
@@ -896,14 +594,14 @@ function toggleTheme() {
                             <p class="font-semibold">
                               Premium Headphones
                             </p>
-                            <p class="text-xs text-gray-600 dark:text-gray-400">
+                            <p class="text-xs text-gray-600">
                               Electronics
                             </p>
                           </div>
                         </div>
                       </td>
                       <td class="px-4 py-3 text-xs">
-                        <span class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
+                        <span class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full">
                           Active
                         </span>
                       </td>
@@ -916,7 +614,7 @@ function toggleTheme() {
                       <td class="px-4 py-3">
                         <div class="flex items-center space-x-4 text-sm">
                           <button
-                            class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                            class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg focus:outline-none focus:shadow-outline-gray"
                             aria-label="Edit"
                           >
                             <svg
@@ -931,7 +629,7 @@ function toggleTheme() {
                             ><path d="M17 3a2.85 2.85 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z" /><path d="m15 5 4 4" /></svg>
                           </button>
                           <button
-                            class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                            class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg focus:outline-none focus:shadow-outline-gray"
                             aria-label="Delete"
                           >
                             <svg
@@ -959,10 +657,10 @@ function toggleTheme() {
                       </td>
                     </tr>
 
-                    <tr class="text-gray-700 dark:text-gray-400">
+                    <tr class="text-gray-700">
                       <td class="px-4 py-3">
                         <div class="flex items-center text-sm">
-                          <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
+                          <div class="relative w-8 h-8 mr-3 rounded-full">
                             <img
                               class="object-cover w-full h-full rounded-full"
                               src="https://images.unsplash.com/photo-1551069613-1904dbdcda11?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
@@ -978,14 +676,14 @@ function toggleTheme() {
                             <p class="font-semibold">
                               Smart Watch
                             </p>
-                            <p class="text-xs text-gray-600 dark:text-gray-400">
+                            <p class="text-xs text-gray-600">
                               Wearables
                             </p>
                           </div>
                         </div>
                       </td>
                       <td class="px-4 py-3 text-xs">
-                        <span class="px-2 py-1 font-semibold leading-tight text-orange-700 bg-orange-100 rounded-full dark:text-white dark:bg-orange-600">
+                        <span class="px-2 py-1 font-semibold leading-tight text-orange-700 bg-orange-100 rounded-full">
                           Low Stock
                         </span>
                       </td>
@@ -998,7 +696,7 @@ function toggleTheme() {
                       <td class="px-4 py-3">
                         <div class="flex items-center space-x-4 text-sm">
                           <button
-                            class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                            class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg focus:outline-none focus:shadow-outline-gray"
                             aria-label="Edit"
                           >
                             <svg
@@ -1013,7 +711,7 @@ function toggleTheme() {
                             ><path d="M17 3a2.85 2.85 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z" /><path d="m15 5 4 4" /></svg>
                           </button>
                           <button
-                            class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                            class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg focus:outline-none focus:shadow-outline-gray"
                             aria-label="Delete"
                           >
                             <svg
@@ -1041,10 +739,10 @@ function toggleTheme() {
                       </td>
                     </tr>
 
-                    <tr class="text-gray-700 dark:text-gray-400">
+                    <tr class="text-gray-700">
                       <td class="px-4 py-3">
                         <div class="flex items-center text-sm">
-                          <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
+                          <div class="relative w-8 h-8 mr-3 rounded-full">
                             <img
                               class="object-cover w-full h-full rounded-full"
                               src="https://images.unsplash.com/photo-1546456073-6712f79251bb?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
@@ -1060,14 +758,14 @@ function toggleTheme() {
                             <p class="font-semibold">
                               Ergonomic Chair
                             </p>
-                            <p class="text-xs text-gray-600 dark:text-gray-400">
+                            <p class="text-xs text-gray-600">
                               Furniture
                             </p>
                           </div>
                         </div>
                       </td>
                       <td class="px-4 py-3 text-xs">
-                        <span class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
+                        <span class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full">
                           Active
                         </span>
                       </td>
@@ -1080,7 +778,7 @@ function toggleTheme() {
                       <td class="px-4 py-3">
                         <div class="flex items-center space-x-4 text-sm">
                           <button
-                            class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                            class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg focus:outline-none focus:shadow-outline-gray"
                             aria-label="Edit"
                           >
                             <svg
@@ -1095,7 +793,7 @@ function toggleTheme() {
                             ><path d="M17 3a2.85 2.85 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z" /><path d="m15 5 4 4" /></svg>
                           </button>
                           <button
-                            class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                            class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg focus:outline-none focus:shadow-outline-gray"
                             aria-label="Delete"
                           >
                             <svg
@@ -1130,7 +828,7 @@ function toggleTheme() {
 
           <!-- Orders -->
           <div v-if="activeTab === 'orders'">
-            <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
+            <h2 class="my-6 text-2xl font-semibold text-gray-700">
               Orders
             </h2>
 
@@ -1140,13 +838,13 @@ function toggleTheme() {
                 <button class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
                   All Orders
                 </button>
-                <button class="px-4 py-2 text-sm font-medium leading-5 text-gray-700 transition-colors duration-150 bg-white border border-gray-300 rounded-lg active:bg-gray-100 hover:bg-gray-100 focus:outline-none focus:shadow-outline-gray dark:text-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:hover:bg-gray-700">
+                <button class="px-4 py-2 text-sm font-medium leading-5 text-gray-700 transition-colors duration-150 bg-white border border-gray-300 rounded-lg active:bg-gray-100 hover:bg-gray-100 focus:outline-none focus:shadow-outline-gray">
                   Pending
                 </button>
-                <button class="px-4 py-2 text-sm font-medium leading-5 text-gray-700 transition-colors duration-150 bg-white border border-gray-300 rounded-lg active:bg-gray-100 hover:bg-gray-100 focus:outline-none focus:shadow-outline-gray dark:text-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:hover:bg-gray-700">
+                <button class="px-4 py-2 text-sm font-medium leading-5 text-gray-700 transition-colors duration-150 bg-white border border-gray-300 rounded-lg active:bg-gray-100 hover:bg-gray-100 focus:outline-none focus:shadow-outline-gray">
                   Shipped
                 </button>
-                <button class="px-4 py-2 text-sm font-medium leading-5 text-gray-700 transition-colors duration-150 bg-white border border-gray-300 rounded-lg active:bg-gray-100 hover:bg-gray-100 focus:outline-none focus:shadow-outline-gray dark:text-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:hover:bg-gray-700">
+                <button class="px-4 py-2 text-sm font-medium leading-5 text-gray-700 transition-colors duration-150 bg-white border border-gray-300 rounded-lg active:bg-gray-100 hover:bg-gray-100 focus:outline-none focus:shadow-outline-gray">
                   Delivered
                 </button>
               </div>
@@ -1162,7 +860,7 @@ function toggleTheme() {
               <div class="w-full overflow-x-auto">
                 <table class="w-full whitespace-no-wrap">
                   <thead>
-                    <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+                    <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b bg-gray-50">
                       <th class="px-4 py-3">
                         Order ID
                       </th>
@@ -1183,14 +881,14 @@ function toggleTheme() {
                       </th>
                     </tr>
                   </thead>
-                  <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                    <tr class="text-gray-700 dark:text-gray-400">
+                  <tbody class="bg-white divide-y">
+                    <tr class="text-gray-700">
                       <td class="px-4 py-3 text-sm">
                         #ORD-001234
                       </td>
                       <td class="px-4 py-3">
                         <div class="flex items-center text-sm">
-                          <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
+                          <div class="relative w-8 h-8 mr-3 rounded-full">
                             <img
                               class="object-cover w-full h-full rounded-full"
                               src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&facepad=3&fit=facearea&s=707b9c33066bf8808c934c8ab394dff6"
@@ -1206,7 +904,7 @@ function toggleTheme() {
                             <p class="font-semibold">
                               Sarah Johnson
                             </p>
-                            <p class="text-xs text-gray-600 dark:text-gray-400">
+                            <p class="text-xs text-gray-600">
                               sarah.j@example.com
                             </p>
                           </div>
@@ -1219,14 +917,14 @@ function toggleTheme() {
                         $259.99
                       </td>
                       <td class="px-4 py-3 text-xs">
-                        <span class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
+                        <span class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full">
                           Delivered
                         </span>
                       </td>
                       <td class="px-4 py-3">
                         <div class="flex items-center space-x-4 text-sm">
                           <button
-                            class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                            class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg focus:outline-none focus:shadow-outline-gray"
                             aria-label="View"
                           >
                             <svg
@@ -1245,7 +943,7 @@ function toggleTheme() {
                             /></svg>
                           </button>
                           <button
-                            class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                            class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg focus:outline-none focus:shadow-outline-gray"
                             aria-label="Edit"
                           >
                             <svg
@@ -1263,13 +961,13 @@ function toggleTheme() {
                       </td>
                     </tr>
 
-                    <tr class="text-gray-700 dark:text-gray-400">
+                    <tr class="text-gray-700">
                       <td class="px-4 py-3 text-sm">
                         #ORD-001233
                       </td>
                       <td class="px-4 py-3">
                         <div class="flex items-center text-sm">
-                          <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
+                          <div class="relative w-8 h-8 mr-3 rounded-full">
                             <img
                               class="object-cover w-full h-full rounded-full"
                               src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
@@ -1285,7 +983,7 @@ function toggleTheme() {
                             <p class="font-semibold">
                               Michael Roberts
                             </p>
-                            <p class="text-xs text-gray-600 dark:text-gray-400">
+                            <p class="text-xs text-gray-600">
                               m.roberts@example.com
                             </p>
                           </div>
@@ -1298,14 +996,14 @@ function toggleTheme() {
                         $129.50
                       </td>
                       <td class="px-4 py-3 text-xs">
-                        <span class="px-2 py-1 font-semibold leading-tight text-orange-700 bg-orange-100 rounded-full dark:text-white dark:bg-orange-600">
+                        <span class="px-2 py-1 font-semibold leading-tight text-orange-700 bg-orange-100 rounded-full">
                           Shipped
                         </span>
                       </td>
                       <td class="px-4 py-3">
                         <div class="flex items-center space-x-4 text-sm">
                           <button
-                            class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                            class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg focus:outline-none focus:shadow-outline-gray"
                             aria-label="View"
                           >
                             <svg
@@ -1324,7 +1022,7 @@ function toggleTheme() {
                             /></svg>
                           </button>
                           <button
-                            class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                            class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg focus:outline-none focus:shadow-outline-gray"
                             aria-label="Edit"
                           >
                             <svg
@@ -1342,13 +1040,13 @@ function toggleTheme() {
                       </td>
                     </tr>
 
-                    <tr class="text-gray-700 dark:text-gray-400">
+                    <tr class="text-gray-700">
                       <td class="px-4 py-3 text-sm">
                         #ORD-001232
                       </td>
                       <td class="px-4 py-3">
                         <div class="flex items-center text-sm">
-                          <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
+                          <div class="relative w-8 h-8 mr-3 rounded-full">
                             <img
                               class="object-cover w-full h-full rounded-full"
                               src="https://images.unsplash.com/photo-1502378735452-bc7d86632805?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&s=aa3a807e1bbdfd4364d1f449eaa96d82"
@@ -1364,7 +1062,7 @@ function toggleTheme() {
                             <p class="font-semibold">
                               Emily Chen
                             </p>
-                            <p class="text-xs text-gray-600 dark:text-gray-400">
+                            <p class="text-xs text-gray-600">
                               e.chen@example.com
                             </p>
                           </div>
@@ -1377,14 +1075,14 @@ function toggleTheme() {
                         $89.99
                       </td>
                       <td class="px-4 py-3 text-xs">
-                        <span class="px-2 py-1 font-semibold leading-tight text-red-700 bg-red-100 rounded-full dark:text-red-100 dark:bg-red-700">
+                        <span class="px-2 py-1 font-semibold leading-tight text-red-700 bg-red-100 rounded-full">
                           Pending
                         </span>
                       </td>
                       <td class="px-4 py-3">
                         <div class="flex items-center space-x-4 text-sm">
                           <button
-                            class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                            class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg focus:outline-none focus:shadow-outline-gray"
                             aria-label="View"
                           >
                             <svg
@@ -1403,7 +1101,7 @@ function toggleTheme() {
                             /></svg>
                           </button>
                           <button
-                            class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                            class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg focus:outline-none focus:shadow-outline-gray"
                             aria-label="Edit"
                           >
                             <svg
@@ -1423,13 +1121,13 @@ function toggleTheme() {
                   </tbody>
                 </table>
               </div>
-              <div class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800">
+              <div class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t bg-gray-50 grid-cols-9">
                 <span class="flex items-center col-span-3">
                   Showing 1-3 of 100
                 </span>
                 <span class="col-span-2" />
                 <!-- Pagination -->
-                <span class="flex col-span-4 mt-2 sm:mt-auto sm:justify-end">
+                <span class="flex col-span-4 justify-end">
                   <nav aria-label="Table navigation">
                     <ul class="inline-flex items-center">
                       <li>
@@ -1492,7 +1190,7 @@ function toggleTheme() {
 
           <!-- Users -->
           <div v-if="activeTab === 'users'">
-            <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
+            <h2 class="my-6 text-2xl font-semibold text-gray-700">
               Users
             </h2>
 
@@ -1525,7 +1223,7 @@ function toggleTheme() {
               <div class="w-full overflow-x-auto">
                 <table class="w-full whitespace-no-wrap">
                   <thead>
-                    <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+                    <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b bg-gray-50">
                       <th class="px-4 py-3">
                         User
                       </th>
@@ -1543,11 +1241,11 @@ function toggleTheme() {
                       </th>
                     </tr>
                   </thead>
-                  <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                    <tr class="text-gray-700 dark:text-gray-400">
+                  <tbody class="bg-white divide-y">
+                    <tr class="text-gray-700">
                       <td class="px-4 py-3">
                         <div class="flex items-center text-sm">
-                          <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
+                          <div class="relative w-8 h-8 mr-3 rounded-full">
                             <img
                               class="object-cover w-full h-full rounded-full"
                               src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&facepad=3&fit=facearea&s=707b9c33066bf8808c934c8ab394dff6"
@@ -1563,7 +1261,7 @@ function toggleTheme() {
                             <p class="font-semibold">
                               Sarah Johnson
                             </p>
-                            <p class="text-xs text-gray-600 dark:text-gray-400">
+                            <p class="text-xs text-gray-600">
                               sarah.j@example.com
                             </p>
                           </div>
@@ -1573,7 +1271,7 @@ function toggleTheme() {
                         Admin
                       </td>
                       <td class="px-4 py-3 text-xs">
-                        <span class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
+                        <span class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full">
                           Active
                         </span>
                       </td>
@@ -1583,7 +1281,7 @@ function toggleTheme() {
                       <td class="px-4 py-3">
                         <div class="flex items-center space-x-4 text-sm">
                           <button
-                            class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                            class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg focus:outline-none focus:shadow-outline-gray"
                             aria-label="Edit"
                           >
                             <svg
@@ -1598,7 +1296,7 @@ function toggleTheme() {
                             ><path d="M17 3a2.85 2.85 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z" /><path d="m15 5 4 4" /></svg>
                           </button>
                           <button
-                            class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                            class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg focus:outline-none focus:shadow-outline-gray"
                             aria-label="Delete"
                           >
                             <svg
@@ -1626,10 +1324,10 @@ function toggleTheme() {
                       </td>
                     </tr>
 
-                    <tr class="text-gray-700 dark:text-gray-400">
+                    <tr class="text-gray-700">
                       <td class="px-4 py-3">
                         <div class="flex items-center text-sm">
-                          <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
+                          <div class="relative w-8 h-8 mr-3 rounded-full">
                             <img
                               class="object-cover w-full h-full rounded-full"
                               src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
@@ -1645,7 +1343,7 @@ function toggleTheme() {
                             <p class="font-semibold">
                               Michael Roberts
                             </p>
-                            <p class="text-xs text-gray-600 dark:text-gray-400">
+                            <p class="text-xs text-gray-600">
                               m.roberts@example.com
                             </p>
                           </div>
@@ -1655,7 +1353,7 @@ function toggleTheme() {
                         Editor
                       </td>
                       <td class="px-4 py-3 text-xs">
-                        <span class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
+                        <span class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full">
                           Active
                         </span>
                       </td>
@@ -1665,7 +1363,7 @@ function toggleTheme() {
                       <td class="px-4 py-3">
                         <div class="flex items-center space-x-4 text-sm">
                           <button
-                            class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                            class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg focus:outline-none focus:shadow-outline-gray"
                             aria-label="Edit"
                           >
                             <svg
@@ -1680,7 +1378,7 @@ function toggleTheme() {
                             ><path d="M17 3a2.85 2.85 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z" /><path d="m15 5 4 4" /></svg>
                           </button>
                           <button
-                            class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                            class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg focus:outline-none focus:shadow-outline-gray"
                             aria-label="Delete"
                           >
                             <svg
@@ -1708,10 +1406,10 @@ function toggleTheme() {
                       </td>
                     </tr>
 
-                    <tr class="text-gray-700 dark:text-gray-400">
+                    <tr class="text-gray-700">
                       <td class="px-4 py-3">
                         <div class="flex items-center text-sm">
-                          <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
+                          <div class="relative w-8 h-8 mr-3 rounded-full">
                             <img
                               class="object-cover w-full h-full rounded-full"
                               src="https://images.unsplash.com/photo-1502378735452-bc7d86632805?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&s=aa3a807e1bbdfd4364d1f449eaa96d82"
@@ -1727,7 +1425,7 @@ function toggleTheme() {
                             <p class="font-semibold">
                               Emily Chen
                             </p>
-                            <p class="text-xs text-gray-600 dark:text-gray-400">
+                            <p class="text-xs text-gray-600">
                               e.chen@example.com
                             </p>
                           </div>
@@ -1737,7 +1435,7 @@ function toggleTheme() {
                         Customer
                       </td>
                       <td class="px-4 py-3 text-xs">
-                        <span class="px-2 py-1 font-semibold leading-tight text-orange-700 bg-orange-100 rounded-full dark:text-white dark:bg-orange-600">
+                        <span class="px-2 py-1 font-semibold leading-tight text-orange-700 bg-orange-100 rounded-full">
                           Suspended
                         </span>
                       </td>
@@ -1747,7 +1445,7 @@ function toggleTheme() {
                       <td class="px-4 py-3">
                         <div class="flex items-center space-x-4 text-sm">
                           <button
-                            class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                            class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg focus:outline-none focus:shadow-outline-gray"
                             aria-label="Edit"
                           >
                             <svg
@@ -1762,7 +1460,7 @@ function toggleTheme() {
                             ><path d="M17 3a2.85 2.85 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z" /><path d="m15 5 4 4" /></svg>
                           </button>
                           <button
-                            class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                            class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg focus:outline-none focus:shadow-outline-gray"
                             aria-label="Delete"
                           >
                             <svg
@@ -1797,7 +1495,7 @@ function toggleTheme() {
 
           <!-- Blog Posts -->
           <div v-if="activeTab === 'blog'">
-            <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
+            <h2 class="my-6 text-2xl font-semibold text-gray-700">
               Blog Posts
             </h2>
 
@@ -1822,29 +1520,29 @@ function toggleTheme() {
             </div>
 
             <!-- Blog post cards -->
-            <div class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-3">
+            <div class="grid gap-6 mb-8 grid-cols-3">
               <!-- Blog post card -->
-              <div class="overflow-hidden bg-white rounded-lg shadow-xs dark:bg-gray-800">
+              <div class="overflow-hidden bg-white rounded-lg shadow-xs">
                 <img
                   class="object-cover w-full h-48"
                   src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
                   alt="Blog post image"
                 >
                 <div class="p-4">
-                  <h4 class="mb-2 text-lg font-semibold text-gray-700 dark:text-gray-200">
+                  <h4 class="mb-2 text-lg font-semibold text-gray-700">
                     10 Tips for E-commerce Success
                   </h4>
-                  <p class="text-sm text-gray-600 dark:text-gray-400">
+                  <p class="text-sm text-gray-600">
                     Learn the top strategies for growing your online store and increasing sales...
                   </p>
                   <div class="flex items-center justify-between mt-4">
-                    <span class="text-xs text-gray-500 dark:text-gray-400">April 10, 2023</span>
+                    <span class="text-xs text-gray-500">April 10, 2023</span>
                     <div class="flex items-center space-x-2">
-                      <span class="px-2 py-1 text-xs font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
+                      <span class="px-2 py-1 text-xs font-semibold leading-tight text-green-700 bg-green-100 rounded-full">
                         Published
                       </span>
                       <button
-                        class="p-1 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                        class="p-1 text-sm font-medium leading-5 text-purple-600 rounded-lg focus:outline-none focus:shadow-outline-gray"
                         aria-label="Edit"
                       >
                         <svg
@@ -1864,27 +1562,27 @@ function toggleTheme() {
               </div>
 
               <!-- Blog post card -->
-              <div class="overflow-hidden bg-white rounded-lg shadow-xs dark:bg-gray-800">
+              <div class="overflow-hidden bg-white rounded-lg shadow-xs">
                 <img
                   class="object-cover w-full h-48"
                   src="https://images.unsplash.com/photo-1499750310107-5fef28a66643?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
                   alt="Blog post image"
                 >
                 <div class="p-4">
-                  <h4 class="mb-2 text-lg font-semibold text-gray-700 dark:text-gray-200">
+                  <h4 class="mb-2 text-lg font-semibold text-gray-700">
                     The Future of Online Shopping
                   </h4>
-                  <p class="text-sm text-gray-600 dark:text-gray-400">
+                  <p class="text-sm text-gray-600">
                     Discover the emerging trends that will shape e-commerce in the coming years...
                   </p>
                   <div class="flex items-center justify-between mt-4">
-                    <span class="text-xs text-gray-500 dark:text-gray-400">March 25, 2023</span>
+                    <span class="text-xs text-gray-500">March 25, 2023</span>
                     <div class="flex items-center space-x-2">
-                      <span class="px-2 py-1 text-xs font-semibold leading-tight text-orange-700 bg-orange-100 rounded-full dark:text-white dark:bg-orange-600">
+                      <span class="px-2 py-1 text-xs font-semibold leading-tight text-orange-700 bg-orange-100 rounded-full">
                         Draft
                       </span>
                       <button
-                        class="p-1 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                        class="p-1 text-sm font-medium leading-5 text-purple-600 rounded-lg focus:outline-none focus:shadow-outline-gray"
                         aria-label="Edit"
                       >
                         <svg
@@ -1904,27 +1602,27 @@ function toggleTheme() {
               </div>
 
               <!-- Blog post card -->
-              <div class="overflow-hidden bg-white rounded-lg shadow-xs dark:bg-gray-800">
+              <div class="overflow-hidden bg-white rounded-lg shadow-xs">
                 <img
                   class="object-cover w-full h-48"
                   src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
                   alt="Blog post image"
                 >
                 <div class="p-4">
-                  <h4 class="mb-2 text-lg font-semibold text-gray-700 dark:text-gray-200">
+                  <h4 class="mb-2 text-lg font-semibold text-gray-700">
                     Customer Retention Strategies
                   </h4>
-                  <p class="text-sm text-gray-600 dark:text-gray-400">
+                  <p class="text-sm text-gray-600">
                     Learn how to keep customers coming back to your online store...
                   </p>
                   <div class="flex items-center justify-between mt-4">
-                    <span class="text-xs text-gray-500 dark:text-gray-400">February 18, 2023</span>
+                    <span class="text-xs text-gray-500">February 18, 2023</span>
                     <div class="flex items-center space-x-2">
-                      <span class="px-2 py-1 text-xs font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
+                      <span class="px-2 py-1 text-xs font-semibold leading-tight text-green-700 bg-green-100 rounded-full">
                         Published
                       </span>
                       <button
-                        class="p-1 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                        class="p-1 text-sm font-medium leading-5 text-purple-600 rounded-lg focus:outline-none focus:shadow-outline-gray"
                         aria-label="Edit"
                       >
                         <svg
@@ -1945,25 +1643,25 @@ function toggleTheme() {
             </div>
 
             <!-- Blog post editor -->
-            <div class="min-w-0 p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
-              <h4 class="mb-4 font-semibold text-gray-800 dark:text-gray-300">
+            <div class="min-w-0 p-4 bg-white rounded-lg shadow-xs">
+              <h4 class="mb-4 font-semibold text-gray-800">
                 Post Editor
               </h4>
               <div class="mb-4">
-                <label class="block text-sm text-gray-700 dark:text-gray-400 mb-2">
+                <label class="block text-sm text-gray-700 mb-2">
                   Title
                 </label>
                 <input
-                  class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                  class="block w-full mt-1 text-sm text-gray-700 bg-gray-100 border-0 rounded-md focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
                   placeholder="Enter post title"
                 >
               </div>
               <div class="mb-4">
-                <label class="block text-sm text-gray-700 dark:text-gray-400 mb-2">
+                <label class="block text-sm text-gray-700 mb-2">
                   Content
                 </label>
                 <textarea
-                  class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-textarea focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
+                  class="block w-full mt-1 text-sm text-gray-700 bg-gray-100 border-0 rounded-md form-textarea focus:border-purple-400 focus:outline-none focus:shadow-outline-purple"
                   rows="6"
                   placeholder="Write your post content here..."
                 />
@@ -1973,7 +1671,7 @@ function toggleTheme() {
                   <button class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
                     Save
                   </button>
-                  <button class="px-4 py-2 text-sm font-medium leading-5 text-gray-700 transition-colors duration-150 bg-white border border-gray-300 rounded-lg active:bg-gray-100 hover:bg-gray-100 focus:outline-none focus:shadow-outline-gray dark:text-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:hover:bg-gray-700 ml-2">
+                  <button class="px-4 py-2 text-sm font-medium leading-5 text-gray-700 transition-colors duration-150 bg-white border border-gray-300 rounded-lg active:bg-gray-100 hover:bg-gray-100 focus:outline-none focus:shadow-outline-gray ml-2">
                     Preview
                   </button>
                 </div>
@@ -1988,41 +1686,3 @@ function toggleTheme() {
     </div>
   </div>
 </template>
-
-<style>
-/* Dark mode setup */
-.dark {
-  color-scheme: dark;
-}
-
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: #f1f1f1;
-}
-
-.dark ::-webkit-scrollbar-track {
-  background: #374151;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #888;
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #555;
-}
-
-.dark ::-webkit-scrollbar-thumb {
-  background: #4b5563;
-}
-
-.dark ::-webkit-scrollbar-thumb:hover {
-  background: #6b7280;
-}
-</style>
