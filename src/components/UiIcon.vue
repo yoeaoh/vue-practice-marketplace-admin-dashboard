@@ -1,35 +1,12 @@
 <script setup lang="ts">
+import type { IconName } from '@/enums/IconName.ts'
+
 const { name, size = 24 } = defineProps<{
-  name: iconNames
+  name: IconName
   size?: number
 }>()
 
-type iconNames = keyof typeof iconsMap
-
-const iconsMap = {
-  'dashboard': 'icon-dashboard',
-  'products': 'icon-products',
-  'orders': 'icon-orders',
-  'users': 'icon-users',
-  'blog': 'icon-blog',
-  'search': 'icon-search',
-  'notification': 'icon-notification',
-  'edit': 'icon-edit',
-  'delete': 'icon-delete',
-  'view': 'icon-view',
-  'revenue': 'icon-revenue',
-  'plus': 'icon-plus',
-  'chevron-down': 'icon-chevron-down',
-  'chevron-left': 'icon-chevron-left',
-  'chevron-right': 'icon-chevron-right',
-  'settings': 'icon-settings',
-  'profile': 'icon-profile',
-  'logout': 'icon-logout',
-  'inventory': 'icon-inventory',
-  'customer': 'icon-customer',
-}
-
-const iconPath = `/svg-sprite.svg#${iconsMap[name]}`
+const iconPath = `/svg-sprite.svg#${name}`
 </script>
 
 <template>
