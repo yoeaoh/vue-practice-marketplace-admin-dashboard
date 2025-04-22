@@ -1,11 +1,14 @@
 <script setup lang="ts">
 import type { IconName } from '@/enums/IconName.ts'
+import UiButton from '@/components/UiButton.vue'
+import UiIcon from '@/components/UiIcon.vue'
+import { ButtonType } from '@/enums/ButtonType.ts'
 
 defineProps<{
   title: string
   icon: IconName
-  buttonAction?: () => void
-  buttonText?: string
+  buttonAction: () => void
+  buttonText: string
 }>()
 </script>
 
@@ -22,12 +25,11 @@ defineProps<{
       </span>
     </div>
 
-    <button
-      v-if="!$slots.button"
-      class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-800 border border-transparent rounded-lg active:bg-purple-900 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple cursor-pointer"
+    <UiButton
+      :variant="ButtonType.PRIMARY_ALT"
       @click="buttonAction"
     >
       {{ buttonText }}
-    </button>
+    </UiButton>
   </div>
 </template>

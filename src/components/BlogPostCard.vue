@@ -1,5 +1,7 @@
 <script setup lang="ts">
+import UiButton from '@/components/UiButton.vue'
 import UiIcon from '@/components/UiIcon.vue'
+import { ButtonType } from '@/enums/ButtonType.ts'
 import { IconName } from '@/enums/IconName.ts'
 
 defineProps<{
@@ -15,20 +17,20 @@ defineProps<{
     <img
       class="object-cover w-full h-48"
       src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
-      alt="Blog post image"
+      :alt="title"
     >
     <div class="p-4">
       <h4 class="mb-2 text-lg font-semibold text-gray-700">
-        10 Tips for E-commerce Success
+        {{ title }}
       </h4>
 
       <p class="text-sm text-gray-600">
-        Learn the top strategies for growing your online store and increasing sales...
+        {{ text }}
       </p>
 
       <div class="flex items-center justify-between mt-4">
         <span class="text-xs text-gray-500">
-          April 10, 2023
+          {{ date }}
         </span>
 
         <div class="flex items-center space-x-2">
@@ -46,15 +48,12 @@ defineProps<{
             Draft
           </span>
 
-          <button
-            class="p-1 text-sm font-medium leading-5 text-purple-600 rounded-lg focus:outline-none focus:shadow-outline-gray"
-            aria-label="Edit"
-          >
+          <UiButton :variant="ButtonType.ICON">
             <UiIcon
               :name="IconName.EDIT"
               :size="20"
             />
-          </button>
+          </UiButton>
         </div>
       </div>
     </div>

@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import PageContentLayout from '@/components/layout/PageContentLayout.vue'
 import PageCta from '@/components/PageCta.vue'
-import ProductsListTable from '@/components/ProductsListTable.vue'
 import { IconName } from '@/enums/IconName.ts'
 </script>
 
@@ -21,7 +20,7 @@ import { IconName } from '@/enums/IconName.ts'
     </template>
 
     <template #default>
-      <ProductsListTable />
+      <!-- TODO: make cards instead of table -->
     </template>
   </PageContentLayout>
 </template>

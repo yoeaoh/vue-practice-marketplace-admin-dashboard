@@ -2,6 +2,8 @@
 import BlogPostCard from '@/components/BlogPostCard.vue'
 import PageContentLayout from '@/components/layout/PageContentLayout.vue'
 import PageCta from '@/components/PageCta.vue'
+import UiButton from '@/components/UiButton.vue'
+import { ButtonType } from '@/enums/ButtonType.ts'
 import { IconName } from '@/enums/IconName.ts'
 </script>
 
@@ -20,7 +22,6 @@ import { IconName } from '@/enums/IconName.ts'
       />
     </template>
 
-    <!-- Blog post cards -->
     <div class="grid gap-6 mb-8 grid-cols-3">
       <BlogPostCard
         title="10 Tips for E-commerce Success"
@@ -56,7 +57,7 @@ import { IconName } from '@/enums/IconName.ts'
         </label>
 
         <input
-          class="block w-full mt-1 text-sm text-gray-700 bg-gray-100 border-0 rounded-md focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
+          class="px-4 py-2 block w-full mt-1 text-sm text-gray-700 bg-gray-100 border-1 border-stone-300 rounded-md form-textarea focus:border-purple-400 focus:outline-none focus:shadow-outline-purple"
           placeholder="Enter post title"
         >
       </div>
@@ -67,26 +68,26 @@ import { IconName } from '@/enums/IconName.ts'
         </label>
 
         <textarea
-          class="block w-full mt-1 text-sm text-gray-700 bg-gray-100 border-0 rounded-md form-textarea focus:border-purple-400 focus:outline-none focus:shadow-outline-purple"
+          class="px-4 py-2 block w-full mt-1 text-sm text-gray-700 bg-gray-100 border-1 border-stone-300 rounded-md form-textarea focus:border-purple-400 focus:outline-none focus:shadow-outline-purple"
           rows="6"
           placeholder="Write your post content here..."
         />
       </div>
 
       <div class="flex justify-between">
-        <div>
-          <button class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
+        <div class="flex gap-x-2">
+          <UiButton :variant="ButtonType.PRIMARY">
             Save
-          </button>
+          </UiButton>
 
-          <button class="px-4 py-2 text-sm font-medium leading-5 text-gray-700 transition-colors duration-150 bg-white border border-gray-300 rounded-lg active:bg-gray-100 hover:bg-gray-100 focus:outline-none focus:shadow-outline-gray ml-2">
+          <UiButton :variant="ButtonType.DEFAULT">
             Preview
-          </button>
+          </UiButton>
         </div>
 
-        <button class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-green-600 border border-transparent rounded-lg active:bg-green-600 hover:bg-green-700 focus:outline-none focus:shadow-outline-green">
+        <UiButton :variant="ButtonType.GOOD">
           Publish
-        </button>
+        </UiButton>
       </div>
     </div>
   </PageContentLayout>

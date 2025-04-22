@@ -14,8 +14,8 @@ defineProps<{
   <li class="relative">
     <RouterLink
       :to="{ name: routeName }"
-      class="inline-flex items-center w-full text-sm font-semibold hover:text-gray-800 border-l-8 h-full px-4 py-2"
-      exact-active-class="border-purple-600 text-purple-600"
+      class="inline-flex items-center w-full text-sm font-semibold hover:text-gray-800 border-l-4 border-stone-200 h-full px-4 py-2"
+      exact-active-class="border-purple-600! text-purple-600"
     >
       <UiIcon :name="icon" />
 
