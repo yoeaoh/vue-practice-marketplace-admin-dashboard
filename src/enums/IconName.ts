@@ -23,7 +23,5 @@ export enum IconName {
   LOCK = 'icon-lock',
   EYE = 'icon-eye',
   EYE_OFF = 'icon-eye-off',
-  GOOGLE = 'icon-google',
-  MICROSOFT = 'icon-microsoft',
   LOADING = 'icon-loading',
 }

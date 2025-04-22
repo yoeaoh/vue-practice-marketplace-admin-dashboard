@@ -102,7 +102,7 @@ async function handleLogin() {
               <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
                 <UiIcon
                   :name="IconName.USER"
-                  class="h-5 w-5"
+                  :size="16"
                 />
               </div>
               <input
@@ -136,7 +136,7 @@ async function handleLogin() {
               <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
                 <UiIcon
                   :name="IconName.LOCK"
-                  class="h-5 w-5"
+                  :size="16"
                 />
               </div>
               <input
@@ -158,7 +158,7 @@ async function handleLogin() {
                 >
                   <UiIcon
                     :name="showPassword ? IconName.EYE_OFF : IconName.EYE"
-                    class="h-5 w-5"
+                    :size="16"
                   />
                 </button>
               </div>
@@ -217,47 +217,6 @@ async function handleLogin() {
             </button>
           </div>
         </form>
-
-        <div class="mt-6">
-          <div class="relative">
-            <div class="absolute inset-0 flex items-center">
-              <div class="w-full border-t border-gray-300" />
-            </div>
-            <div class="relative flex justify-center text-sm">
-              <span class="px-2 bg-white text-gray-500">
-                Or continue with
-              </span>
-            </div>
-          </div>
-
-          <div class="mt-6 grid grid-cols-2 gap-3">
-            <div>
-              <a
-                href="#"
-                class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
-              >
-                <span class="sr-only">Sign in with Google</span>
-                <UiIcon
-                  class="w-5 h-5"
-                  :name="IconName.GOOGLE"
-                />
-              </a>
-            </div>
-
-            <div>
-              <a
-                href="#"
-                class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
-              >
-                <span class="sr-only">Sign in with Microsoft</span>
-                <UiIcon
-                  class="w-5 h-5"
-                  :name="IconName.MICROSOFT"
-                />
-              </a>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
 
