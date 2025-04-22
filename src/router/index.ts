@@ -18,8 +18,18 @@ const router = createRouter({
         },
         {
           path: 'products',
-          name: RouteName.PRODUCTS,
-          component: () => import('../views/ProductsListView.vue'),
+          children: [
+            {
+              path: '',
+              name: RouteName.PRODUCTS,
+              component: () => import('../views/ProductsListView.vue'),
+            },
+            {
+              path: 'new',
+              name: RouteName.CREATE_PRODUCT,
+              component: () => import('../views/ProductsCreateView.vue'),
+            },
+          ],
         },
         {
           path: 'orders',

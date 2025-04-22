@@ -3,12 +3,19 @@ import PageContentLayout from '@/components/layout/PageContentLayout.vue'
 import PageCta from '@/components/PageCta.vue'
 import ProductCard from '@/components/ProductCard.vue'
 import { IconName } from '@/enums/IconName.ts'
+import { RouteName } from '@/enums/RouteName.ts'
 import { useProductsStore } from '@/stores/products.ts'
 import { storeToRefs } from 'pinia'
 import { onMounted, watch } from 'vue'
+import { useRouter } from 'vue-router'
 
 const productsStore = useProductsStore()
 const { products, isLoading } = storeToRefs(productsStore)
+
+const router = useRouter()
+function goToCreateProductPage() {
+  router.push({ name: RouteName.CREATE_PRODUCT })
+}
 
 onMounted(() => productsStore.loadProducts())
 </script>
@@ -24,7 +31,7 @@ onMounted(() => productsStore.loadProducts())
         title="Manage your products inventory"
         :icon="IconName.PRODUCTS"
         button-text="Add product"
-        :button-action="() => console.log('products')"
+        :button-action="goToCreateProductPage"
       />
     </template>
 
