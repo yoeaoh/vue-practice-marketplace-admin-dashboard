@@ -7,9 +7,8 @@ import { reactive, ref } from 'vue'
 
 // Form state
 const form = reactive({
-  username: '',
-  password: '',
-  rememberMe: false,
+  username: 'john_doe',
+  password: 'pass123',
 })
 
 // Form validation errors
@@ -59,13 +58,11 @@ async function handleLogin() {
     console.warn('Login submitted:', {
       username: form.username,
       password: form.password,
-      rememberMe: form.rememberMe,
     })
 
     // Reset form
     form.username = ''
     form.password = ''
-    form.rememberMe = false
   }
   catch (error) {
     console.error('Login failed:', error)
@@ -173,39 +170,13 @@ async function handleLogin() {
             </p>
           </div>
 
-          <div class="flex items-center justify-between">
-            <div class="flex items-center">
-              <input
-                id="remember-me"
-                v-model="form.rememberMe"
-                name="remember-me"
-                type="checkbox"
-                class="h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300 rounded"
-              >
-              <label
-                for="remember-me"
-                class="ml-2 block text-sm text-gray-900"
-              >
-                Remember me
-              </label>
-            </div>
-
-            <div class="text-sm">
-              <a
-                href="#"
-                class="font-medium text-purple-600 hover:text-purple-500"
-              >
-                Forgot your password?
-              </a>
-            </div>
-          </div>
-
           <div>
             <UiButton
               :variant="ButtonType.PRIMARY"
               type="submit"
               :disabled="isLoading"
               class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 disabled:opacity-50 disabled:cursor-not-allowed"
+              @click="handleLogin"
             >
               <span
                 v-if="isLoading"
