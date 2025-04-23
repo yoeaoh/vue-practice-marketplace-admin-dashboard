@@ -1,9 +1,19 @@
-import axios from 'axios'
+import type { IProduct, IProductDto } from '@/interfaces/IProduct.ts'
+import api from '@/api/api.ts'
 
 export function useProductsService() {
-  const getProducts = () => axios.get('https://05949e39e3414691.mokky.dev/products')
+  const getProducts = () => api.get('/products')
+
+  const getProductById = (id: number) => api.get(`/products/${id}`)
+
+  const deleteProductById = (id: number) => api.delete(`/products/${id}`)
+
+  const postNewProduct = (product: IProductDto): Promise<{ data: IProduct }> => api.post('/products', product)
 
   return {
     getProducts,
+    deleteProductById,
+    getProductById,
+    postNewProduct,
   }
 }

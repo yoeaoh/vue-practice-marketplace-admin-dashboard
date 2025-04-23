@@ -6,29 +6,20 @@ import { ButtonType } from '@/enums/ButtonType.ts'
 import { IconName } from '@/enums/IconName.js'
 import { defineProps } from 'vue'
 
-// Define props
-const props = defineProps({
-  title: {
-    type: String,
-    required: true,
-  },
-  description: {
-    type: String,
-    default: '',
-  },
-  stock: {
-    type: Number,
-    default: 0,
-  },
-  price: {
-    type: [Number, String],
-    required: true,
-  },
-  image: {
-    type: String,
-    default: 'https://images.unsplash.com/photo-1551069613-1904dbdcda11?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max',
-  },
-})
+const {
+  image = 'https://images.unsplash.com/photo-1551069613-1904dbdcda11?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max',
+} = defineProps<{
+  id: number
+  title: string
+  description: string
+  stock: number
+  price: string
+  image?: string
+}>()
+
+defineEmits<{
+  (e: 'delete', id: number): void
+}>()
 </script>
 
 <template>
@@ -78,14 +69,19 @@ const props = defineProps({
           </div>
 
           <div class="w-full md:w-auto flex justify-end items-center space-x-2 mt-3 md:mt-0">
-            <UiButton :variant="ButtonType.ICON">
+            <UiButton
+              :variant="ButtonType.ICON"
+            >
               <UiIcon
                 :name="IconName.EDIT"
                 class="w-5 h-5"
               />
             </UiButton>
 
-            <UiButton :variant="ButtonType.ICON">
+            <UiButton
+              :variant="ButtonType.ICON"
+              @click="$emit('delete', id)"
+            >
               <UiIcon
                 :name="IconName.DELETE"
                 class="w-5 h-5"

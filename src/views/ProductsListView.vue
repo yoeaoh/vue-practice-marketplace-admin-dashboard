@@ -10,18 +10,29 @@ import { onMounted, watch } from 'vue'
 import { useRouter } from 'vue-router'
 
 const productsStore = useProductsStore()
-const { products, isLoading } = storeToRefs(productsStore)
-
 const router = useRouter()
-function goToCreateProductPage() {
-  router.push({ name: RouteName.CREATE_PRODUCT })
+
+async function deleteProduct(id: number) {
+  await productsStore.deleteProduct(id)
 }
 
-onMounted(() => productsStore.loadProducts())
+async function onCreateNewProductClick() {
+  router.push({ name: RouteName.CREATE_PRODUCT })
+  // await productsStore.createProduct({
+  //   name: '234 product',
+  //   description: '123test new product',
+  //   price: '$123',
+  //   stock: 234,
+  // })
+}
+
+watch(productsStore.products, productsStore.loadProducts, { immediate: true })
+
+// onMounted(() => productsStore.loadProducts())
 </script>
 
 <template>
-  <PageContentLayout :is-loading="isLoading">
+  <PageContentLayout :is-loading="productsStore.isLoading">
     <template #title>
       Products
     </template>
@@ -31,18 +42,20 @@ onMounted(() => productsStore.loadProducts())
         title="Manage your products inventory"
         :icon="IconName.PRODUCTS"
         button-text="Add product"
-        :button-action="goToCreateProductPage"
+        :button-action="onCreateNewProductClick"
       />
     </template>
 
     <template #default>
       <ProductCard
-        v-for="product in products"
+        v-for="product in productsStore.products"
+        :id="product.id"
         :key="product.id"
         :price="product.price"
         :title="product.name"
         :description="product.description"
         :stock="product.stock"
+        @delete="deleteProduct"
       >
         {{ product.name }}
       </ProductCard>
